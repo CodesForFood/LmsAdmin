@@ -22,8 +22,8 @@ public class AuthorController {
 	@Autowired
 	AuthorDAO authDAO;
 	
-	@GetMapping(value ="/author")
-	public List<Author> getAllPublishers(@RequestParam(required = false, defaultValue = "100") int size) {
+	@GetMapping(value ="/authors")
+	public List<Author> getAllAuthors(@RequestParam(required = false, defaultValue = "100") int size) {
 		Pageable limit = PageRequest.of(0,size);
 		return authDAO.findAll(limit).getContent();
 	}	

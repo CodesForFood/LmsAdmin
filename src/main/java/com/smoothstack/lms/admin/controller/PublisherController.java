@@ -30,7 +30,7 @@ public class PublisherController {
 	@Autowired
 	private PublisherDAO pubDAO;
 	
-	@GetMapping(value ="/publisher")
+	@GetMapping(value ="/publishers")
 	public List<Publisher> getAllPublishers(@RequestParam(required = false, defaultValue = "100") int size) {
 		Pageable limit = PageRequest.of(0,size);
 		return pubDAO.findAll(limit).getContent();

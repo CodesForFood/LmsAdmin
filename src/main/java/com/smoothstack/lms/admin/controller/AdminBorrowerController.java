@@ -20,42 +20,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smoothstack.lms.admin.dao.BookDAO;
-import com.smoothstack.lms.admin.entity.Book;
+import com.smoothstack.lms.admin.dao.AdminBorrowerDAO;
+import com.smoothstack.lms.admin.entity.Borrower;
 
 @RestController
 @RequestMapping("/admin")
-public class BookController {
+public class AdminBorrowerController {
 
 	@Autowired
-	private BookDAO bookDAO;
+	private AdminBorrowerDAO borrDAO;
 	
-	
-	@GetMapping(value ="/books")
-	public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "100") int size) {
+	@GetMapping(value ="/borrowers")
+	public List<Borrower> getAllBorrowers(@RequestParam(required = false, defaultValue = "100") int size) {
 		Pageable limit = PageRequest.of(0,size);
-		return bookDAO.findAll(limit).getContent();
-	}	
+		return borrDAO.findAll(limit).getContent();
+	}		
 	
-	
-	@GetMapping(value = "/book/{id}")
-	public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
-		Optional<Book> book = bookDAO.findById(id);		
+	@GetMapping(value = "/borrower/{cardNo}")
+	public ResponseEntity<Borrower> getBorrowerById(@PathVariable Integer cardNo) {
+		Optional<Borrower> borr = borrDAO.findById(cardNo);		
 				
-		return !book.isPresent() ? new ResponseEntity<Book>(HttpStatus.NOT_FOUND) 
-			: new ResponseEntity<Book>(book.get(), HttpStatus.OK);						 
+		return !borr.isPresent() ? new ResponseEntity<Borrower>(HttpStatus.NOT_FOUND) 
+			: new ResponseEntity<Borrower>(borr.get(), HttpStatus.OK);						 
 	}
 	
-	@PostMapping(value ="/book")
+	@PostMapping(value ="/borrower")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Book createBook(@Valid @RequestBody Book book) {
-		return bookDAO.save(book);
+	public Borrower createBorrower(@Valid @RequestBody Borrower borr) {
+		return borrDAO.save(borr);
 	}	
 
-	@PutMapping(value ="/book")
+	@PutMapping(value ="/borrower")
 	@ResponseStatus(HttpStatus.OK)
-	public Book updateBook(@Valid @RequestBody Book book) {
-		return bookDAO.save(book);
+	public Borrower updateBorrower(@Valid @RequestBody Borrower borr) {
+		return borrDAO.save(borr);
 	}	
 	
 }

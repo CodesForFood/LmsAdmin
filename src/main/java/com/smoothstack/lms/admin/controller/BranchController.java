@@ -30,7 +30,7 @@ public class BranchController {
 	@Autowired
 	private BranchDAO branchDAO;
 	
-	@GetMapping(value ="/branch")
+	@GetMapping(value ="/branchs")
 	public List<LibraryBranch> getAllBranches(@RequestParam(required = false, defaultValue = "100") int size) {
 		Pageable limit = PageRequest.of(0,size);
 		return branchDAO.findAll(limit).getContent();
