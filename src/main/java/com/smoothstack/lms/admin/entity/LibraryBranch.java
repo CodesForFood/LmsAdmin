@@ -39,6 +39,12 @@ public class LibraryBranch {
 	public void setBranchAddress(String branchAddress) {
 		this.branchAddress = branchAddress;
 	}
+	
+	public LibraryBranch() {}
+	
+	public LibraryBranch(Integer id) {
+		this.branchId = id;
+	}
 
 	@Override
 	public int hashCode() {
