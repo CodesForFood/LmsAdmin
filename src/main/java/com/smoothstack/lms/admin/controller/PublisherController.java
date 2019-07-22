@@ -1,13 +1,10 @@
 package com.smoothstack.lms.admin.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,41 +17,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smoothstack.lms.admin.dao.PublisherDAO;
 import com.smoothstack.lms.admin.entity.Publisher;
+import com.smoothstack.lms.admin.service.PublisherService;
 
 @RestController
 @RequestMapping("/admin")
 public class PublisherController {
 	
 	@Autowired
-	private PublisherDAO pubDAO;
+	private PublisherService pubService;
 	
 	@GetMapping(value ="/publishers")
 	public List<Publisher> getAllPublishers(@RequestParam(required = false, defaultValue = "100") int size) {
-		Pageable limit = PageRequest.of(0,size);
-		return pubDAO.findAll(limit).getContent();
+		return pubService.getAllPublishers(size);
 	}	
 	
 	
 	@GetMapping(value = "/publisher/{id}")
 	public ResponseEntity<Publisher> getPublisherById(@PathVariable Integer id) {
-		Optional<Publisher> pub = pubDAO.findById(id); 	
-		
-		return pub.isPresent() ? new ResponseEntity<Publisher>(pub.get(), HttpStatus.OK)
-				: new ResponseEntity<Publisher>(HttpStatus.NOT_FOUND);							 
+		return pubService.getPublisherById(id);							 
 	}
 	
 	@PostMapping(value ="/publisher")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Publisher createPublisher(@Valid @RequestBody Publisher pub) {
-		return pubDAO.save(pub);
+		return pubService.createPublisher(pub);
 	}	
 
 	@PutMapping(value ="/publisher")
 	@ResponseStatus(HttpStatus.OK)
-	public Publisher UpdatePublisher(@Valid @RequestBody Publisher pub) {
-		return pubDAO.save(pub);
+	public Publisher updatePublisher(@Valid @RequestBody Publisher pub) {
+		return pubService.updatePublisher(pub);
 	}	
 	
 }

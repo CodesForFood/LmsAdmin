@@ -1,13 +1,10 @@
 package com.smoothstack.lms.admin.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,40 +17,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smoothstack.lms.admin.dao.AdminBorrowerDAO;
 import com.smoothstack.lms.admin.entity.Borrower;
+import com.smoothstack.lms.admin.service.AdminBorrowerService;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminBorrowerController {
 
 	@Autowired
-	private AdminBorrowerDAO borrDAO;
+	private AdminBorrowerService borrService;
 	
 	@GetMapping(value ="/borrowers")
-	public List<Borrower> getAllBorrowers(@RequestParam(required = false, defaultValue = "100") int size) {
-		Pageable limit = PageRequest.of(0,size);
-		return borrDAO.findAll(limit).getContent();
+	public List<Borrower> getAllBorrowers(@RequestParam(required = false, defaultValue = "100") int size) {		
+		return borrService.getAllBorrowers(size);
 	}		
 	
 	@GetMapping(value = "/borrower/{cardNo}")
 	public ResponseEntity<Borrower> getBorrowerById(@PathVariable Integer cardNo) {
-		Optional<Borrower> borr = borrDAO.findById(cardNo);		
-				
-		return !borr.isPresent() ? new ResponseEntity<Borrower>(HttpStatus.NOT_FOUND) 
-			: new ResponseEntity<Borrower>(borr.get(), HttpStatus.OK);						 
+		return borrService.getBorrowerById(cardNo);								 
 	}
 	
 	@PostMapping(value ="/borrower")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Borrower createBorrower(@Valid @RequestBody Borrower borr) {
-		return borrDAO.save(borr);
+		return borrService.createBorrower(borr);
 	}	
 
 	@PutMapping(value ="/borrower")
 	@ResponseStatus(HttpStatus.OK)
 	public Borrower updateBorrower(@Valid @RequestBody Borrower borr) {
-		return borrDAO.save(borr);
+		return borrService.updateBorrower(borr);
 	}	
 	
 }
