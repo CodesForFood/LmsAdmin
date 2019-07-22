@@ -31,14 +31,14 @@ public class BookCopyController {
 	private BookCopiesDAO bookCopyDAO;
 	
 	
-	@GetMapping(value = "/bookcopies")
+	@GetMapping(value = "/noOfBooks", produces = "application/json")
 	public List<BookCopies> getAllBookCopies(@RequestParam(required = false, defaultValue = "100") int size) {
 		Pageable limit = PageRequest.of(0,size);
 		return bookCopyDAO.findAll(limit).getContent();
 	}
 	
 	
-	@GetMapping(value = "/bookcopy/book/{bookId}/branch/{branchId}")
+	@GetMapping(value = "/noOfBook/ofBook/{bookId}/inBranch/{branchId}", produces = "application/json")
 	public ResponseEntity<BookCopies> getBookCopiesByBookAndBranch(@PathVariable Integer bookId, @PathVariable Integer branchId){
 		if(bookId == null || branchId == null) {
 			return new ResponseEntity<BookCopies>(HttpStatus.BAD_REQUEST);
@@ -50,7 +50,7 @@ public class BookCopyController {
 				: new ResponseEntity<BookCopies>(HttpStatus.NOT_FOUND);					
 	}
 	
-	@GetMapping(value = "/bookcopy/book/{bookId}")
+	@GetMapping(value = "/noOfBook/ofBook/{bookId}", produces = "application/json")
 	public ResponseEntity<List<BookCopies>> getBookCopiesByBook(@PathVariable Integer bookId){
 		if(bookId == null) {
 			return new ResponseEntity<List<BookCopies>>(HttpStatus.BAD_REQUEST);
@@ -62,7 +62,7 @@ public class BookCopyController {
 				: new ResponseEntity<List<BookCopies>>(HttpStatus.NOT_FOUND);		
 	}
 	
-	@GetMapping(value = "/bookcopy/branch/{branchId}")
+	@GetMapping(value = "/noOfBook/inBranch/{branchId}", produces = "application/json")
 	public ResponseEntity<List<BookCopies>> getBookCopiesOfBranch(@PathVariable Integer branchId){
 		if(branchId == null) {
 			return new ResponseEntity<List<BookCopies>>(HttpStatus.BAD_REQUEST);
@@ -75,13 +75,13 @@ public class BookCopyController {
 
 	}
 	
-	@PostMapping(value = "/bookcopy")
+	@PostMapping(value = "/noOfBook", produces = "application/json")
 	public BookCopies addBookCopies(@RequestBody BookCopies bookCopies) {		
 		
 		return bookCopyDAO.save(bookCopies);			
 	}
 	
-	@PutMapping(value = "/bookcopy")
+	@PutMapping(value = "/noOfBook", produces = "application/json")
 	public ResponseEntity<BookCopies> updateBookCopies(@RequestBody BookCopies bookCopies) {
 		Book book = bookCopies.getBookCopyId().getBook();
 		LibraryBranch branch  = bookCopies.getBookCopyId().getBranch();
