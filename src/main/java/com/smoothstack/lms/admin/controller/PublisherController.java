@@ -27,24 +27,24 @@ public class PublisherController {
 	@Autowired
 	private PublisherService pubService;
 	
-	@GetMapping(value ="/publishers")
+	@GetMapping(value ="/publishers", produces = "application/json", consumes = "application/json")
 	public List<Publisher> getAllPublishers(@RequestParam(required = false, defaultValue = "100") int size) {
 		return pubService.getAllPublishers(size);
 	}	
 	
 	
-	@GetMapping(value = "/publisher/{id}")
+	@GetMapping(value = "/publisher/{id}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Publisher> getPublisherById(@PathVariable Integer id) {
 		return pubService.getPublisherById(id);							 
 	}
 	
-	@PostMapping(value ="/publisher")
+	@PostMapping(value ="/publisher", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Publisher createPublisher(@Valid @RequestBody Publisher pub) {
 		return pubService.createPublisher(pub);
 	}	
 
-	@PutMapping(value ="/publisher")
+	@PutMapping(value ="/publisher", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public Publisher updatePublisher(@Valid @RequestBody Publisher pub) {
 		return pubService.updatePublisher(pub);

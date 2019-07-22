@@ -28,24 +28,24 @@ public class BookController {
 	private BookService bookService;
 	
 	
-	@GetMapping(value ="/books")
+	@GetMapping(value ="/books", produces = "application/json", consumes = "application/json")
 	public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return bookService.getAllBooks(size);
 	}	
 	
 	
-	@GetMapping(value = "/book/{id}")
+	@GetMapping(value = "/book/{id}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
 		return bookService.getBookById(id);											 
 	}
 	
-	@PostMapping(value ="/book")
+	@PostMapping(value ="/book", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Book createBook(@Valid @RequestBody Book book) {
 		return bookService.createBook(book);
 	}	
 
-	@PutMapping(value ="/book")
+	@PutMapping(value ="/book", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public Book updateBook(@Valid @RequestBody Book book) {
 		return bookService.updateBook(book);

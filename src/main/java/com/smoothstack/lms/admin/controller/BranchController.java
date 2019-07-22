@@ -27,24 +27,24 @@ public class BranchController {
 	@Autowired
 	private BranchService branchService;
 	
-	@GetMapping(value ="/branches")
+	@GetMapping(value ="/branches", produces = "application/json", consumes = "application/json")
 	public List<LibraryBranch> getAllBranches(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return branchService.getAllBranches(size);
 	}	
 	
 	
-	@GetMapping(value = "/branch/{id}")
+	@GetMapping(value = "/branch/{id}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<LibraryBranch> getBranchById(@PathVariable Integer id) {
 		return branchService.getBranchById(id);					 								 
 	}
 	
-	@PostMapping(value ="/branch")
+	@PostMapping(value ="/branch", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public LibraryBranch createBranch(@Valid @RequestBody LibraryBranch branch) {
 		return branchService.createBranch(branch);
 	}	
 
-	@PutMapping(value ="/branch")
+	@PutMapping(value ="/branch", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public LibraryBranch  updateBranch(@Valid @RequestBody LibraryBranch branch) {				
 		return branchService.updateBranch(branch);

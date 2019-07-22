@@ -27,23 +27,23 @@ public class AdminBorrowerController {
 	@Autowired
 	private AdminBorrowerService borrService;
 	
-	@GetMapping(value ="/borrowers")
+	@GetMapping(value ="/borrowers", produces = "application/json", consumes = "application/json")
 	public List<Borrower> getAllBorrowers(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return borrService.getAllBorrowers(size);
 	}		
 	
-	@GetMapping(value = "/borrower/{cardNo}")
+	@GetMapping(value = "/borrower/{cardNo}", produces = "application/json", consumes = "application/json")
 	public ResponseEntity<Borrower> getBorrowerById(@PathVariable Integer cardNo) {
 		return borrService.getBorrowerById(cardNo);								 
 	}
 	
-	@PostMapping(value ="/borrower")
+	@PostMapping(value ="/borrower", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Borrower createBorrower(@Valid @RequestBody Borrower borr) {
 		return borrService.createBorrower(borr);
 	}	
 
-	@PutMapping(value ="/borrower")
+	@PutMapping(value ="/borrower", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public Borrower updateBorrower(@Valid @RequestBody Borrower borr) {
 		return borrService.updateBorrower(borr);
