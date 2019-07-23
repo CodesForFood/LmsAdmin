@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smoothstack.lms.admin.Const;
 import com.smoothstack.lms.admin.entity.BookCopies;
 import com.smoothstack.lms.admin.service.BookCopyService;
 
@@ -24,35 +25,35 @@ public class BookCopyController {
 	private BookCopyService bookCopyService;
 	
 	
-	@GetMapping(value = "/noOfBooks", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/noOfBooks", produces = { Const.XML, Const.JSON })
 	public List<BookCopies> getAllBookCopies(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return bookCopyService.getAllBookCopies(size);
 	}
 	
 	
-	@GetMapping(value = "/noOfBook/ofBook/{bookId}/inBranch/{branchId}", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/noOfBook/ofBook/{bookId}/inBranch/{branchId}", produces = { Const.XML, Const.JSON })
 	public ResponseEntity<BookCopies> getBookCopiesByBookAndBranch(@PathVariable Integer bookId, @PathVariable Integer branchId){
 		return bookCopyService.getBookCopiesByBookAndBranch(bookId, branchId);								
 	}
 	
-	@GetMapping(value = "/noOfBook/ofBook/{bookId}", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/noOfBook/ofBook/{bookId}", produces = { Const.XML, Const.JSON })
 	public ResponseEntity<List<BookCopies>> getBookCopiesByBook(@PathVariable Integer bookId){
 		return bookCopyService.getBookCopiesByBook(bookId);			
 	}
 	
-	@GetMapping(value = "/noOfBook/inBranch/{branchId}", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/noOfBook/inBranch/{branchId}", produces = { Const.XML, Const.JSON })
 	public ResponseEntity<List<BookCopies>> getBookCopiesOfBranch(@PathVariable Integer branchId){
 		return bookCopyService.getBookCopiesOfBranch(branchId);		
 
 	}
 	
-	@PostMapping(value = "/noOfBook", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "/noOfBook", produces = "application/json", consumes = { Const.XML, Const.JSON })
 	public BookCopies addBookCopies(@RequestBody BookCopies bookCopies) {		
 		return bookCopyService.addBookCopies(bookCopies);
 		
 	}
 	
-	@PutMapping(value = "/noOfBook", produces = "application/json", consumes = "application/json")
+	@PutMapping(value = "/noOfBook", produces = "application/json", consumes = { Const.XML, Const.JSON })
 	public ResponseEntity<BookCopies> updateBookCopies(@RequestBody BookCopies bookCopies) {
 		return bookCopyService.updateBookCopies(bookCopies);
 	}	

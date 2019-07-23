@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smoothstack.lms.admin.Const;
 import com.smoothstack.lms.admin.entity.Borrower;
 import com.smoothstack.lms.admin.service.AdminBorrowerService;
 
@@ -27,23 +28,23 @@ public class AdminBorrowerController {
 	@Autowired
 	private AdminBorrowerService borrService;
 	
-	@GetMapping(value ="/borrowers", produces = "application/json", consumes = "application/json")
+	@GetMapping(value ="/borrowers", produces = { Const.XML, Const.JSON })
 	public List<Borrower> getAllBorrowers(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return borrService.getAllBorrowers(size);
 	}		
 	
-	@GetMapping(value = "/borrower/{cardNo}", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/borrower/{cardNo}", produces = { Const.XML, Const.JSON })
 	public ResponseEntity<Borrower> getBorrowerById(@PathVariable Integer cardNo) {
 		return borrService.getBorrowerById(cardNo);								 
 	}
 	
-	@PostMapping(value ="/borrower", produces = "application/json", consumes = "application/json")
+	@PostMapping(value ="/borrower", produces = { Const.XML, Const.JSON }, consumes = { Const.XML, Const.JSON })
 	@ResponseStatus(HttpStatus.CREATED)
 	public Borrower createBorrower(@Valid @RequestBody Borrower borr) {
 		return borrService.createBorrower(borr);
 	}	
 
-	@PutMapping(value ="/borrower", produces = "application/json", consumes = "application/json")
+	@PutMapping(value ="/borrower", produces = { Const.XML, Const.JSON }, consumes = { Const.XML, Const.JSON })
 	@ResponseStatus(HttpStatus.OK)
 	public Borrower updateBorrower(@Valid @RequestBody Borrower borr) {
 		return borrService.updateBorrower(borr);

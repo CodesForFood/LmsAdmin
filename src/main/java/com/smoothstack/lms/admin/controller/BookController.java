@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smoothstack.lms.admin.Const;
 import com.smoothstack.lms.admin.entity.Book;
 import com.smoothstack.lms.admin.service.BookService;
 
@@ -28,24 +29,24 @@ public class BookController {
 	private BookService bookService;
 	
 	
-	@GetMapping(value ="/books", produces = "application/json", consumes = "application/json")
+	@GetMapping(value ="/books", produces = { Const.XML, Const.JSON })
 	public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return bookService.getAllBooks(size);
 	}	
 	
 	
-	@GetMapping(value = "/book/{id}", produces = "application/json", consumes = "application/json")
+	@GetMapping(value = "/book/{id}", produces = { Const.XML, Const.JSON })
 	public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
 		return bookService.getBookById(id);											 
 	}
 	
-	@PostMapping(value ="/book", produces = "application/json", consumes = "application/json")
+	@PostMapping(value ="/book", produces = { Const.XML, Const.JSON }, consumes = { Const.XML, Const.JSON })
 	@ResponseStatus(HttpStatus.CREATED)
 	public Book createBook(@Valid @RequestBody Book book) {
 		return bookService.createBook(book);
 	}	
 
-	@PutMapping(value ="/book", produces = "application/json", consumes = "application/json")
+	@PutMapping(value ="/book", produces = { Const.XML, Const.JSON }, consumes = { Const.XML, Const.JSON })
 	@ResponseStatus(HttpStatus.OK)
 	public Book updateBook(@Valid @RequestBody Book book) {
 		return bookService.updateBook(book);
