@@ -27,35 +27,35 @@ public class BookCopyController {
 	private BookCopyService bookCopyService;
 	
 	
-	@GetMapping(value = "/noOfBooks", produces = { XML, JSON })
+	@GetMapping(value = "/number-of-copies", produces = { XML, JSON })
 	public List<BookCopies> getAllBookCopies(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return bookCopyService.getAllBookCopies(size);
 	}
 	
 	
-	@GetMapping(value = "/noOfBook/ofBook/{bookId}/inBranch/{branchId}", produces = { XML, JSON })
+	@GetMapping(value = "/number-of-copies/ofBook/{bookId}/inBranch/{branchId}", produces = { XML, JSON })
 	public ResponseEntity<BookCopies> getBookCopiesByBookAndBranch(@PathVariable Integer bookId, @PathVariable Integer branchId){
 		return bookCopyService.getBookCopiesByBookAndBranch(bookId, branchId);								
 	}
 	
-	@GetMapping(value = "/noOfBook/ofBook/{bookId}", produces = { XML, JSON })
+	@GetMapping(value = "/number-of-copies/ofBook/{bookId}", produces = { XML, JSON })
 	public ResponseEntity<List<BookCopies>> getBookCopiesByBook(@PathVariable Integer bookId){
 		return bookCopyService.getBookCopiesByBook(bookId);			
 	}
 	
-	@GetMapping(value = "/noOfBook/inBranch/{branchId}", produces = { XML, JSON })
+	@GetMapping(value = "/number-of-copies/inBranch/{branchId}", produces = { XML, JSON })
 	public ResponseEntity<List<BookCopies>> getBookCopiesOfBranch(@PathVariable Integer branchId){
 		return bookCopyService.getBookCopiesOfBranch(branchId);		
 
 	}
 	
-	@PostMapping(value = "/noOfBook", produces = "application/json", consumes = { XML, JSON })
+	@PostMapping(value = "/number-of-copies", produces = "application/json", consumes = { XML, JSON })
 	public BookCopies addBookCopies(@RequestBody BookCopies bookCopies) {		
 		return bookCopyService.addBookCopies(bookCopies);
 		
 	}
 	
-	@PutMapping(value = "/noOfBook", produces = "application/json", consumes = { XML, JSON })
+	@PutMapping(value = "/number-of-copies", produces = "application/json", consumes = { XML, JSON })
 	public ResponseEntity<BookCopies> updateBookCopies(@RequestBody BookCopies bookCopies) {
 		return bookCopyService.updateBookCopies(bookCopies);
 	}	
