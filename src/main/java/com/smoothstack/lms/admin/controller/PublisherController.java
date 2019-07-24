@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.smoothstack.lms.admin.Const;
 import com.smoothstack.lms.admin.entity.Publisher;
 import com.smoothstack.lms.admin.service.PublisherService;
 
@@ -25,27 +24,30 @@ import com.smoothstack.lms.admin.service.PublisherService;
 @RequestMapping("/admin")
 public class PublisherController {
 	
+	private final String XML = "application/xml";
+	private final String JSON = "application/json";
+	
 	@Autowired
 	private PublisherService pubService;
 	
-	@GetMapping(value ="/publishers", produces = { Const.XML, Const.JSON })
+	@GetMapping(value ="/publishers", produces = { XML, JSON })
 	public List<Publisher> getAllPublishers(@RequestParam(required = false, defaultValue = "100") int size) {
 		return pubService.getAllPublishers(size);
 	}	
 	
 	
-	@GetMapping(value = "/publisher/{id}", produces = { Const.XML, Const.JSON })
+	@GetMapping(value = "/publisher/{id}", produces = { XML, JSON })
 	public ResponseEntity<Publisher> getPublisherById(@PathVariable Integer id) {
 		return pubService.getPublisherById(id);							 
 	}
 	
-	@PostMapping(value ="/publisher", produces = { Const.XML, Const.JSON }, consumes = { Const.XML, Const.JSON })
+	@PostMapping(value ="/publisher", produces = { XML, JSON }, consumes = { XML, JSON })
 	@ResponseStatus(HttpStatus.CREATED)
 	public Publisher createPublisher(@Valid @RequestBody Publisher pub) {
 		return pubService.createPublisher(pub);
 	}	
 
-	@PutMapping(value ="/publisher", produces = { Const.XML, Const.JSON }, consumes = { Const.XML, Const.JSON })
+	@PutMapping(value ="/publisher", produces = { XML, JSON }, consumes = { XML, JSON })
 	@ResponseStatus(HttpStatus.OK)
 	public Publisher updatePublisher(@Valid @RequestBody Publisher pub) {
 		return pubService.updatePublisher(pub);
