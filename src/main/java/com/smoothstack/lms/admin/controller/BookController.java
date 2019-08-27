@@ -31,24 +31,24 @@ public class BookController {
 	private BookService bookService;
 	
 	
-	@GetMapping(value ="/books", produces = { XML, JSON })
+	@GetMapping(value ="/books", produces = { JSON, XML })
 	public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return bookService.getAllBooks(size);
 	}	
 	
 	
-	@GetMapping(value = "/book/{id}", produces = { XML, JSON })
+	@GetMapping(value = "/book/{id}", produces = { JSON, XML})
 	public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
 		return bookService.getBookById(id);											 
 	}
 	
-	@PostMapping(value ="/book", produces = { XML, JSON }, consumes = { XML, JSON })
+	@PostMapping(value ="/book", produces = { JSON, XML }, consumes = { JSON, XML})
 	@ResponseStatus(HttpStatus.CREATED)
 	public Book createBook(@Valid @RequestBody Book book) {
 		return bookService.createBook(book);
 	}	
 
-	@PutMapping(value ="/book", produces = { XML, JSON }, consumes = { XML, JSON })
+	@PutMapping(value ="/book", produces = { JSON, XML }, consumes = { JSON, XML })
 	@ResponseStatus(HttpStatus.OK)
 	public Book updateBook(@Valid @RequestBody Book book) {
 		return bookService.updateBook(book);
