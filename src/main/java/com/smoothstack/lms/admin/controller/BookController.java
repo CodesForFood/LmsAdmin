@@ -32,8 +32,7 @@ public class BookController {
 	@GetMapping(value ="/books", produces = { JSON, XML })
 	public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "100") int size) {		
 		return bookService.getAllBooks(size);
-	}	
-	
+	}		
 	
 	@GetMapping(value = "/book/{id}", produces = { JSON, XML})
 	public ResponseEntity<Book> getBookById(@PathVariable Integer id) {
