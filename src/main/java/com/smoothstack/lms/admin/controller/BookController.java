@@ -23,7 +23,6 @@ import com.smoothstack.lms.admin.service.BookService;
 @RestController
 @RequestMapping("/admin")
 public class BookController {
-
 	private final String XML = "application/xml";
 	private final String JSON = "application/json";
 	
