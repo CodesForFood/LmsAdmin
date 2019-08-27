@@ -28,8 +28,7 @@ public class BookController {
 	private final String JSON = "application/json";
 	
 	@Autowired
-	private BookService bookService;
-	
+	private BookService bookService;	
 	
 	@GetMapping(value ="/books", produces = { JSON, XML })
 	public List<Book> getAllBooks(@RequestParam(required = false, defaultValue = "100") int size) {		
